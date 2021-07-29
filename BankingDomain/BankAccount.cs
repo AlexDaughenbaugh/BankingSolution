@@ -2,7 +2,7 @@
 
 namespace BankingDomain
 {
-    public class BankAccount
+    public class BankAccount : ICanWithdrawFundsFromAnAccount
     {
         private decimal _balance = 5000M;
         private readonly ICalculateBankAccountBonuses _bonusCalculator;
