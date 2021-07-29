@@ -13,5 +13,13 @@ namespace BankingTests
         {
             return 0;
         }
+
+    }
+    public class BonusCalculatorStubDummy : ICalculateBankAccountBonuses
+    {
+        public decimal GetDepositBonusFor(decimal balance, decimal amountToDeposit)
+        {
+            return balance == 5000M && amountToDeposit == 100 ? 42 : 0;
+        }
     }
 }
