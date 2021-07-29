@@ -1,4 +1,5 @@
 ﻿using BankingDomain;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,14 @@ namespace BankingTests.BankAccountTests
         [Fact]
         public void TheBonusCalculatorIsUsedProperly()
         {
-            var account = new BankAccount(new BonusCalculatorStubDummy());
+            //Given
+            var stubbedBonusCalculator = new Mock<ICalculateBankAccountBonuses>();
+            var account = new BankAccount(stubbedBonusCalculator.Object);
             var openingBalance = account.GetBalance();
             var amountToDeposit = 100;
+            stubbedBonusCalculator
+                .Setup(calc => calc.GetDepositBonusFor(openingBalance, amountToDeposit))
+                .Returns(42);
 
             account.Deposit(amountToDeposit);
 
